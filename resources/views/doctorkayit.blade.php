@@ -1,26 +1,18 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
-<div class="contaier mt-5">
+@extends('layout')
+@section('content')
+<div class="contaier mt-5 col-lg-6">
         <form method="post" action="{{ route('doctorkayit-sonuc')}}">
           @csrf
             <div class="form-group">
-                <label>doktor ad soyad</label>
-                <input type="text" class="form-control" name="name">
+                <label>Doktor Ad Soyad</label>
+                <input type="text" class="form-control" name="doctor_name">
               </div>   
-              <div class="form-group">
-                <label>Doktor branş</label>
-                <input type="text" class="form-control" name="branch">
-              </div>  
-            <button type="submit" class="btn btn-primary">Kayıt Ol</button>
-
+              <select name="branch_id">
+              @foreach($branches as $item)
+                <option value="{{$item->id}}">{{$item->branch_name}}</option>
+                @endforeach
+              </select>
+            <button type="submit" class="btn btn-primary">Doktor Kayıt</button>
           </form>
     </div>
-</body>
-</html>
+  @endsection

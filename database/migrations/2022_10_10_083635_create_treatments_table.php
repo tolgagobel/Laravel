@@ -15,11 +15,15 @@ class CreateTreatmentsTable extends Migration
     {
         Schema::create('treatments', function (Blueprint $table) {
             $table->id();
-            $table->string('branch_name');
-            $table->string('branch_fee');
+            $table->string('treatment_name');
+            $table->string('treatment_fee');
             $table->bigInteger('doctor_id')->unsigned();
-            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
+            $table->bigInteger('branch_id')->unsigned();
             $table->timestamps();
+
+            $table->foreign('doctor_id')->references('id')->on('doctors')->onDelete('cascade');
+            $table->foreign('branch_id')->references('id')->on('branches')->onDelete('cascade');
+
         });
     }
 

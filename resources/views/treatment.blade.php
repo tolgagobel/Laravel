@@ -1,30 +1,27 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+@extends('layout')
+@section('content')
+<div class="container col-lg-6">
 <table class="table table-bordered">
   <thead>
     <tr>
-      <th scope="col">No</th>
       <th scope="col">Branch Name</th>
       <th scope="col">Branch fee</th>
+      <th scope="col">Doctor</th>
+      <th scope="col">Update</th>
     </tr>
   </thead>
   <tbody>
-    @foreach($treatments as $key=>$treatments)
+    @foreach($treatments as $treatment)
     <tr>
-      <th scope="row">{{$key+1}}</th>
-      <td>{{$treatments->branch_name}}</td>
-      <td>{{$treatments->branch_fee}}</td>
+      <td>{{$treatment->treatment_name}}</td>
+      <td>{{$treatment->treatment_fee}}</td>
+      <td>{{$treatment->doctor->doctor_name}}</td> 
+      <th>
+        <a href="{{ route('tedavi',$treatment->id) }}" class="btn btn-sm btn-warning">Update</a>
+      </th>
     </tr>
     @endforeach
   </tbody>
 </table>
-    
-</body>
-</html>
+</div>
+@endsection

@@ -5,51 +5,35 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Doctor;
 use App\Models\Treatment;
+use App\Models\Branch;
 
 class Doctorcontroller extends Controller
 {
     public function getIndex(){
-
-        $doctor=Doctor::all();
-
-        return view('index',compact('doctor'));
-
+        $doctors=Doctor::getDoctors();
+        $treatments=Treatment::all();
+        return view('index',compact('doctors'));
     }
-
-    public function tedavi($doctor_id){
-
-        $treatments=Treatment::where('id',$doctor_id)->get();
-
-        return view('treatment',compact('treatments'));
-    }
-
-
-    public function index(){
-
-        return view('doctorkayit');
-
-    }
-
-   public function ekle(Request $request){
     
-    $name=$request->name;
-    $branch=$request->branch;
+    public function index(){
+        $branches=Branch::all();
+        return view('doctorkayit')->with([
+            'branches' =>$branches
+        ]);
+    }
 
+   public function doktorekle(Request $request){
+    $name=$request->input('doctor_name');
+    $branch=$request->input('branch_id');
     Doctor::create([
-
         "doctor_name"=>$name,
-        "doctor_branch"=>$branch,
-
+        "branch_id"=>$branch,
     ]);
-
+    return redirect()->route('index');
    }
-
-   public function delete($doctor_id){
-
+   
+   public function doktordelete($doctor_id){
     Doctor::where('id',$doctor_id)->delete();
     return redirect()->route('index');
-
-
-     }
-   
+     }   
 }
